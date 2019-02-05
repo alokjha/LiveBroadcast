@@ -16,12 +16,16 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
-
+MXPlayer.xcworkspace/xcuserdata
 ## Other
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
-
+fastlane/report.xml
+*.cer
+fastlane/certificate/
+fastlane/ipa/
+*.mobileprovision
 ## Obj-C/Swift specific
 *.hmap
 *.ipa
@@ -31,6 +35,11 @@ xcuserdata/
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
+
+## macOS Specific
+.DS_Store
+.AppleDouble
+.LSOverride
 
 # Swift Package Manager
 #
@@ -46,12 +55,12 @@ playground.xcworkspace
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
-# Pods/
+Pods/
 
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
+Carthage/Checkouts
 
 Carthage/Build
 
@@ -64,5 +73,5 @@ Carthage/Build
 
 fastlane/report.xml
 fastlane/Preview.html
-fastlane/screenshots/**/*.png
+fastlane/screenshots
 fastlane/test_output
