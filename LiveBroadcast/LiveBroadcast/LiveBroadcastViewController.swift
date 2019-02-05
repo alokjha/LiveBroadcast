@@ -53,6 +53,9 @@ class LiveBroadcastViewController: UIViewController {
         countDownLabel.textColor = UIColor.white
         countDownLabel.font = UIFont.systemFont(ofSize: 40.0, weight: .bold)
         countDownLabel.isHidden = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
 
         // Do any additional setup after loading the view.
     }
@@ -64,6 +67,22 @@ class LiveBroadcastViewController: UIViewController {
         
         layoutDone = true
         startCountDown()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    @objc func appDidBecomeActive(_ notification: Notification) {
+        guard layoutDone else {
+            return
+        }
+        stopLiveBroadCast()
+        startLiveBroadcast()
+    }
+    
+    @objc func appDidEnterBackground(_ notification: Notification) {
+        stopLiveBroadCast()
     }
     
     func setup() {
@@ -101,8 +120,6 @@ class LiveBroadcastViewController: UIViewController {
             countDownLabel.text = String(countDown)
             countDown = countDown - 1
         } else {
-            removeCountDownLable()
-            setup()
             startLiveBroadcast()
         }
     }
@@ -117,6 +134,8 @@ class LiveBroadcastViewController: UIViewController {
     }
     
     func startLiveBroadcast() {
+        removeCountDownLable()
+        setup()
         videoView.videoGravity = .resizeAspectFill
         videoView.attachStream(rtmpStream)
         rtmpConnection.connect("rtmp://13.127.163.52:1935/app")
@@ -133,13 +152,20 @@ class LiveBroadcastViewController: UIViewController {
 
         self.displayLink = displayLink
         UIApplication.shared.isIdleTimerDisabled = true
+        
+        stopButton.tintColor = UIColor.red
     }
     
-    @IBAction func stopButtonPressed(_ sender: UIButton) {
+    func stopLiveBroadCast() {
         UIApplication.shared.isIdleTimerDisabled = false
         displayLink?.invalidate()
         displayLink = nil
         rtmpStream.close()
+        rtmpStream.dispose()
+    }
+    
+    @IBAction func stopButtonPressed(_ sender: UIButton) {
+        stopLiveBroadCast()
         self.dismiss(animated: true, completion: nil)
     }
     

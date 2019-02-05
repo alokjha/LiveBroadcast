@@ -16,6 +16,8 @@
 		C27B97102209870B00BA439F /* MXCADisplayLinkProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B970F2209870B00BA439F /* MXCADisplayLinkProxy.swift */; };
 		C27B97132209872C00BA439F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27B97122209872C00BA439F /* AVFoundation.framework */; };
 		C27B97152209873100BA439F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27B97142209873100BA439F /* QuartzCore.framework */; };
+		C27B97172209DCB200BA439F /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B97162209DCB200BA439F /* RecordingViewController.swift */; };
+		C27B97192209E2F800BA439F /* MXAVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B97182209E2F800BA439F /* MXAVPlayerView.swift */; };
 		C3B0D7402B6084CAAAC1F773 /* Pods_LiveBroadcast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3106359E24356D3DD546E1CF /* Pods_LiveBroadcast.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +35,8 @@
 		C27B970F2209870B00BA439F /* MXCADisplayLinkProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MXCADisplayLinkProxy.swift; sourceTree = "<group>"; };
 		C27B97122209872C00BA439F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C27B97142209873100BA439F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C27B97162209DCB200BA439F /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
+		C27B97182209E2F800BA439F /* MXAVPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MXAVPlayerView.swift; sourceTree = "<group>"; };
 		EC64DDB023A5BC5DF2BADC1F /* Pods-LiveBroadcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveBroadcast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiveBroadcast/Pods-LiveBroadcast.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +87,8 @@
 				C27B96FB2209688500BA439F /* AppDelegate.swift */,
 				C27B96FD2209688500BA439F /* ViewController.swift */,
 				C27B970D2209807500BA439F /* LiveBroadcastViewController.swift */,
+				C27B97162209DCB200BA439F /* RecordingViewController.swift */,
+				C27B97182209E2F800BA439F /* MXAVPlayerView.swift */,
 				C27B96FF2209688500BA439F /* Main.storyboard */,
 				C27B97022209688700BA439F /* Assets.xcassets */,
 				C27B97042209688700BA439F /* LaunchScreen.storyboard */,
@@ -217,6 +223,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C27B96FE2209688500BA439F /* ViewController.swift in Sources */,
+				C27B97192209E2F800BA439F /* MXAVPlayerView.swift in Sources */,
+				C27B97172209DCB200BA439F /* RecordingViewController.swift in Sources */,
 				C27B97102209870B00BA439F /* MXCADisplayLinkProxy.swift in Sources */,
 				C27B96FC2209688500BA439F /* AppDelegate.swift in Sources */,
 				C27B970E2209807500BA439F /* LiveBroadcastViewController.swift in Sources */,
