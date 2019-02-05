@@ -18,15 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SyC-Hq-SUW">
-                                <rect key="frame" x="0.0" y="20" width="375" height="211"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" secondItem="SyC-Hq-SUW" secondAttribute="width" multiplier="9:16" id="00o-b9-Sze"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lpk-CR-uKl">
-                                <rect key="frame" x="147.5" y="264" width="80" height="40"/>
+                                <rect key="frame" x="147.5" y="313.5" width="80" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Ape-kN-gw7"/>
                                     <constraint firstAttribute="width" constant="80" id="BJ4-AL-CaN"/>
@@ -39,22 +32,107 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="SyC-Hq-SUW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0qj-vg-fJU"/>
+                            <constraint firstItem="Lpk-CR-uKl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="5fM-F4-EV0"/>
                             <constraint firstItem="Lpk-CR-uKl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7Xf-zY-oBn"/>
-                            <constraint firstItem="SyC-Hq-SUW" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Bgu-De-I9F"/>
-                            <constraint firstItem="Lpk-CR-uKl" firstAttribute="top" secondItem="SyC-Hq-SUW" secondAttribute="bottom" constant="33" id="G0a-z1-uxN"/>
-                            <constraint firstItem="SyC-Hq-SUW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="VmN-5B-OS8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="liveButton" destination="Lpk-CR-uKl" id="nyo-mi-q7j"/>
-                        <outlet property="videoView" destination="SyC-Hq-SUW" id="aky-7h-CAw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="133.5832083958021"/>
         </scene>
+        <!--Live Broadcast View Controller-->
+        <scene sceneID="yF2-cp-7D1">
+            <objects>
+                <viewController storyboardIdentifier="liveBroadcastVC" id="O1d-On-gx3" customClass="LiveBroadcastViewController" customModule="LiveBroadcast" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="buP-3u-b1V">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P3l-bi-WsL">
+                                <rect key="frame" x="0.0" y="567" width="375" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qp5-x2-rnf">
+                                        <rect key="frame" x="169.5" y="8" width="36" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DvP-6a-MO4">
+                                        <rect key="frame" x="327" y="42" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="Xal-VO-UhU"/>
+                                            <constraint firstAttribute="height" constant="40" id="soF-T3-bCp"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="camera-switch">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="switchCameraPressed:" destination="O1d-On-gx3" eventType="touchUpInside" id="wqZ-8j-dkb"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Tk-dm-WmM">
+                                        <rect key="frame" x="159.5" y="35" width="66" height="57"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="66" id="P1H-Xp-KJI"/>
+                                            <constraint firstAttribute="height" constant="57" id="t02-4C-9zA"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="stop-camera">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="stopButtonPressed:" destination="O1d-On-gx3" eventType="touchUpInside" id="QDo-Ud-Lhr"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="4Tk-dm-WmM" firstAttribute="centerX" secondItem="P3l-bi-WsL" secondAttribute="centerX" constant="5" id="66V-f9-gNZ"/>
+                                    <constraint firstAttribute="height" constant="100" id="6eT-k1-0BE"/>
+                                    <constraint firstAttribute="bottom" secondItem="DvP-6a-MO4" secondAttribute="bottom" constant="18" id="6nJ-mG-egh"/>
+                                    <constraint firstAttribute="trailing" secondItem="DvP-6a-MO4" secondAttribute="trailing" constant="8" id="Ee9-N3-BS7"/>
+                                    <constraint firstAttribute="bottom" secondItem="4Tk-dm-WmM" secondAttribute="bottom" constant="8" id="S4e-pB-c8J"/>
+                                    <constraint firstItem="Qp5-x2-rnf" firstAttribute="centerX" secondItem="P3l-bi-WsL" secondAttribute="centerX" id="Y65-uI-Fuz"/>
+                                    <constraint firstItem="4Tk-dm-WmM" firstAttribute="top" secondItem="Qp5-x2-rnf" secondAttribute="bottom" constant="10" id="r6i-EX-tr7"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDj-qb-wdw" customClass="HKView" customModule="HaishinKit">
+                                <rect key="frame" x="0.0" y="20" width="375" height="547"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GDj-qb-wdw" firstAttribute="leading" secondItem="jzm-7c-DMm" secondAttribute="leading" id="7if-VI-Mpi"/>
+                            <constraint firstItem="P3l-bi-WsL" firstAttribute="bottom" secondItem="jzm-7c-DMm" secondAttribute="bottom" id="E9t-3c-I1c"/>
+                            <constraint firstItem="P3l-bi-WsL" firstAttribute="leading" secondItem="jzm-7c-DMm" secondAttribute="leading" id="GAH-Kx-CGt"/>
+                            <constraint firstItem="P3l-bi-WsL" firstAttribute="top" secondItem="GDj-qb-wdw" secondAttribute="bottom" id="KZE-x1-BgK"/>
+                            <constraint firstItem="GDj-qb-wdw" firstAttribute="trailing" secondItem="jzm-7c-DMm" secondAttribute="trailing" id="WLi-Q2-gOf"/>
+                            <constraint firstItem="GDj-qb-wdw" firstAttribute="top" secondItem="jzm-7c-DMm" secondAttribute="top" id="e8h-Yd-uap"/>
+                            <constraint firstItem="P3l-bi-WsL" firstAttribute="trailing" secondItem="jzm-7c-DMm" secondAttribute="trailing" id="gBG-88-Od8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jzm-7c-DMm"/>
+                    </view>
+                    <connections>
+                        <outlet property="cameraSwitchButton" destination="DvP-6a-MO4" id="hVq-WC-gaa"/>
+                        <outlet property="stopButton" destination="4Tk-dm-WmM" id="iWW-i0-SK4"/>
+                        <outlet property="timeLabel" destination="Qp5-x2-rnf" id="YrY-rE-KMF"/>
+                        <outlet property="videoView" destination="GDj-qb-wdw" id="fUl-M9-dkg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cUr-hz-glR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="868" y="131.78410794602701"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="camera-switch" width="200" height="200"/>
+        <image name="stop-camera" width="150" height="126"/>
+    </resources>
 </document>
