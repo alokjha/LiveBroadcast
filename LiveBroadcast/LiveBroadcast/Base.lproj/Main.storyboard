@@ -91,7 +91,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aWT-N0-uxf">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="430"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderSquare" translatesAutoresizingMaskIntoConstraints="NO" id="zfI-GS-B4D">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phonynigam" translatesAutoresizingMaskIntoConstraints="NO" id="zfI-GS-B4D">
                                                 <rect key="frame" x="20" y="60" width="80" height="80"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="80" id="4Jj-IJ-sbm"/>
@@ -99,7 +99,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrp-2F-5BX">
-                                                <rect key="frame" x="120" y="60" width="39.5" height="19.5"/>
+                                                <rect key="frame" x="130" y="90.5" width="39.5" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -238,7 +238,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="8Gl-Gn-9qR" firstAttribute="top" secondItem="zfI-GS-B4D" secondAttribute="bottom" constant="54" id="1Rd-Gv-atT"/>
-                                            <constraint firstItem="Hrp-2F-5BX" firstAttribute="leading" secondItem="zfI-GS-B4D" secondAttribute="trailing" constant="20" id="24P-jz-k37"/>
+                                            <constraint firstItem="Hrp-2F-5BX" firstAttribute="leading" secondItem="zfI-GS-B4D" secondAttribute="trailing" constant="30" id="24P-jz-k37"/>
                                             <constraint firstAttribute="trailing" secondItem="FeP-Qr-tpw" secondAttribute="trailing" constant="20" id="33t-KS-H6S"/>
                                             <constraint firstItem="8Gl-Gn-9qR" firstAttribute="leading" secondItem="zfI-GS-B4D" secondAttribute="leading" id="3vq-jv-dzJ"/>
                                             <constraint firstAttribute="bottom" secondItem="XHI-KC-Tz8" secondAttribute="bottom" constant="10" id="7Am-p3-m6V"/>
@@ -246,6 +246,7 @@
                                             <constraint firstItem="XHI-KC-Tz8" firstAttribute="leading" secondItem="nvg-GO-TTQ" secondAttribute="leading" constant="10" id="HNV-sy-rni"/>
                                             <constraint firstAttribute="trailing" secondItem="tiz-9X-a1A" secondAttribute="trailing" constant="20" id="IFu-ks-THP"/>
                                             <constraint firstItem="3bB-gi-eqJ" firstAttribute="top" secondItem="FeP-Qr-tpw" secondAttribute="bottom" constant="25" id="JWz-Qu-2Gl"/>
+                                            <constraint firstItem="Hrp-2F-5BX" firstAttribute="centerY" secondItem="zfI-GS-B4D" secondAttribute="centerY" id="Jyj-AW-jdR"/>
                                             <constraint firstAttribute="trailing" secondItem="XHI-KC-Tz8" secondAttribute="trailing" constant="20" id="LBK-Od-yn5"/>
                                             <constraint firstItem="zfI-GS-B4D" firstAttribute="top" secondItem="aWT-N0-uxf" secondAttribute="top" constant="60" id="Ohe-UY-q0i"/>
                                             <constraint firstAttribute="trailing" secondItem="R4Y-Ow-wTu" secondAttribute="trailing" constant="20" id="Qis-tn-sXg"/>
@@ -259,7 +260,6 @@
                                             <constraint firstItem="hhH-Ab-pS1" firstAttribute="top" secondItem="3bB-gi-eqJ" secondAttribute="bottom" constant="25" id="itH-b9-zal"/>
                                             <constraint firstItem="R4Y-Ow-wTu" firstAttribute="leading" secondItem="hhH-Ab-pS1" secondAttribute="leading" constant="10" id="ixN-xE-ryj"/>
                                             <constraint firstItem="hhH-Ab-pS1" firstAttribute="leading" secondItem="8Gl-Gn-9qR" secondAttribute="leading" id="jZr-Xf-m8r"/>
-                                            <constraint firstItem="Hrp-2F-5BX" firstAttribute="top" secondItem="zfI-GS-B4D" secondAttribute="top" id="l0F-LE-QLi"/>
                                             <constraint firstItem="3bB-gi-eqJ" firstAttribute="leading" secondItem="aWT-N0-uxf" secondAttribute="leading" constant="20" id="pfr-AE-WZX"/>
                                             <constraint firstItem="XHI-KC-Tz8" firstAttribute="top" secondItem="nvg-GO-TTQ" secondAttribute="bottom" constant="10" id="tCb-Uc-Dmh"/>
                                             <constraint firstAttribute="trailing" secondItem="3bB-gi-eqJ" secondAttribute="trailing" constant="20" id="thm-Bk-9c0"/>
@@ -450,7 +450,7 @@
         <image name="calendar" width="29.164556503295898" height="29.164556503295898"/>
         <image name="camera-switch" width="200" height="200"/>
         <image name="close" width="20" height="20"/>
-        <image name="placeholderSquare" width="105" height="105"/>
+        <image name="phonynigam" width="340" height="340"/>
         <image name="play" width="409.60000610351562" height="409.60000610351562"/>
         <image name="stop-camera" width="150" height="126"/>
     </resources>

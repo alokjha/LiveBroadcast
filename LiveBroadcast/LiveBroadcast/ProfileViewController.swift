@@ -36,10 +36,18 @@ class ProfileViewController: UIViewController {
         switch currentUserType {
         case .arist:
             profileLabel.text = artistName
+            profileImageView.image = UIImage(imageLiteralResourceName: "phonynigam")
             Delegate.unsubscribe(from: artistTopic)
+            liveButton.isEnabled = true
+            scheduleButton.isEnabled = true
+            
         case .subscriber:
             profileLabel.text = subscriberName
+            profileImageView.image = UIImage(imageLiteralResourceName: "anotherfan")
             Delegate.subscribe(to: artistTopic)
+            liveButton.isEnabled = false
+            scheduleButton.isEnabled = false
+            
         default:
             break
         }
