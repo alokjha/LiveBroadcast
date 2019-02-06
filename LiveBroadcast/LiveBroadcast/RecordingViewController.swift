@@ -37,6 +37,8 @@ class RecordingViewController: UIViewController {
     }
     
     func setupPlayer() {
+        avPlayer.rate = 1.0
+        
         let hlsURL = "http://13.127.163.52/live/mystream/index.m3u8"
         let asset = AVURLAsset(url: URL(string: hlsURL)!)
         asset.resourceLoader.preloadsEligibleContentKeys = true
@@ -85,9 +87,7 @@ class RecordingViewController: UIViewController {
 
     @objc
     private func handlePlaybackEnd(notification: Notification) {
-        guard let playerItem = (notification.object as? AVPlayerItem) else { return }
-//        Log.debug("Received playback ended notification", tags: ["avplayer", "id(\(playerID))"])
-//        updateState(to: .ended(.playbackEnded))
+        closeButtonPressed(UIButton())
     }
     
     
@@ -99,7 +99,7 @@ class RecordingViewController: UIViewController {
             //updateState(to: .ended(.error(.unknown)))
         case .readyToPlay:
             //updateState(to: .readyToPlay)
-            avPlayer.play()
+            break
         case .unknown:
             break
             //updateState(to: .uninitialized)

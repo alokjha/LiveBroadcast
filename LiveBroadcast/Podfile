@@ -5,7 +5,13 @@ def import_pods
     pod 'HaishinKit', :path => '~/Documents/HaishinKit.swift/'
 end
 
+def firebase_pods
+    pod 'Firebase/Core', '~> 5.1'
+    pod 'Firebase/Messaging', '~> 5.1'
+end
+
 target 'LiveBroadcast'  do
     platform :ios, '11.0'
     import_pods
+    firebase_pods
 end

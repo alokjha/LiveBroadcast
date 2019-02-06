@@ -44,6 +44,8 @@ class LiveBroadcastViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        videoView.clipsToBounds = true
+        
         countDownLabel.translatesAutoresizingMaskIntoConstraints = false
         videoView.addSubview(countDownLabel)
         
@@ -56,6 +58,8 @@ class LiveBroadcastViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        
+        timeLabel.isHidden = true
 
         // Do any additional setup after loading the view.
     }
@@ -192,6 +196,9 @@ class LiveBroadcastViewController: UIViewController {
        let diff = currentTime.timeIntervalSince(sessionStartTime)
        let defaultValue = "0:00:00"
        self.timeLabel.text = self.timeFormatter.string(from: diff) ?? defaultValue
+        if timeLabel.isHidden {
+            timeLabel.isHidden = false
+        }
     }
 
     func cameraWithPosition(_ position: AVCaptureDevice.Position) -> AVCaptureDevice? {

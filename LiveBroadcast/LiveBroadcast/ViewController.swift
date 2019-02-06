@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func notifyButtonPressed(_ sender: UIButton) {
-        
+        Delegate.sendNotification()
     }
     
     @IBAction func viewLiveButtonPressed(_ sender: UIButton) {

@@ -9,12 +9,16 @@
 import UIKit
 import AVFoundation
 import HaishinKit
+import Firebase
+import UserNotifications
+
+let Delegate = UIApplication.shared.delegate as! AppDelegate
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+     let gcmMessageIDKey = "gcm.message_id"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -25,10 +29,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // https://stackoverflow.com/questions/51010390/avaudiosession-setcategory-swift-4-2-ios-12-play-sound-on-silent
             try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetooth])
             try session.setActive(true)
-        } catch {
+        } catch (let error){
+            print("audiosession \(error)")
         }
         
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        setUpNotification()
         return true
+    }
+    
+    
+    
+    func setUpNotification() {
+        UNUserNotificationCenter.current().delegate = self
+        
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: {_, _ in })
+        
+        UIApplication.shared.registerForRemoteNotifications()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -53,6 +74,82 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let userInfo = response.notification.request.content.userInfo
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        // Print full message.
+        print(userInfo)
+
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        let userInfo = notification.request.content.userInfo
+        
+       
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+        
+        // Print full message.
+        print(userInfo)
+
+        completionHandler([.alert,.sound])
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("Firebase registration token(FCM token): \(fcmToken)")
+        
+        // This callback is fired at each app startup and whenever a new token is generated.
+        
+        let topic = "LiveBroadcast"
+        DispatchQueue.main.async {
+            Messaging.messaging().subscribe(toTopic: topic) { _ in
+                print("Subscribed to firebase messaging with topic: \(topic)")
+            }
+        }
+ 
+    }
+}
+
+extension AppDelegate {
+    func sendNotification() {
+        let topic = "LiveBroadcast"
+        let url = URL(string: "https://fcm.googleapis.com/v1/projects/livebroadcast-f7a53/messages:send")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Bearer ya29.GlunBiDNBNy-AfbhW4X3kF8NsbgwDkV58iUYIzQjHGxZjGBHeJt0cNLRbeNTmmySyBzo9ey3gGA4vE962nZ5lMv9pkus-8KohfOuvFeM8e2uaxWwsIxG0Eyawj9E", forHTTPHeaderField: "Authorization")
+        
+        var jsonDict : [String: Any] = [:]
+        jsonDict["topic"] = topic
+        jsonDict["notification"] = ["body" : "Sample Body", "title": "FCM Message"]
+        
+        let body = ["message" : jsonDict]
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        
+        let session = URLSession(configuration:URLSessionConfiguration.default)
+        
+        session.dataTask(with: request) { (data, response, error) in
+            print("response \(String(describing: response)) error \(String(describing: error))")
+            
+            if let data = data, let foo = String.init(data: data, encoding: .utf8) {
+                print("server response \(foo)")
+            }
+        }.resume()
+    }
+}
