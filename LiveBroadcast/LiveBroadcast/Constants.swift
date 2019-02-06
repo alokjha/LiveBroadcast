@@ -15,7 +15,7 @@ let subscriberName = "Another Nigam Fan"
 let rtmpHost = "rtmp://13.127.163.52:1935/app"
 let hlsBaseURL = "http://13.127.163.52/live/"
 
-let firebasOauthToken = "ya29.GlyoBgDoF6eJsqwScbmkO_5dTrAPl-A8kSxKvnQbCgFBrapjJOC-FbC4ZZ7tm6dVxPeoAEEOufP5HkPEMPkHLP1yMtIfHnw6BtFgn9VPRKicXMnhwPqc3vW4d24Pdw"
+let firebasOauthToken = "ya29.GlyoBjGqEXbiaiIG2TA1uWSyn6tJU52_u5JhWds0J3E6TDoIElhRSH7cgrJXxNYwpRDoqwjVPqoZkJpW_wk260G7-UL8CTU8AvUKGy9lgRWx7um335KQ9WB1CSv5mQ"
 
 
 let goLiveNotification = Notification.Name("goLiveNotification")

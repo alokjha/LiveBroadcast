@@ -17,6 +17,7 @@ class LiveBroadcastViewController: UIViewController {
     @IBOutlet var stopButton: UIButton!
     @IBOutlet var cameraSwitchButton: UIButton!
     @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var channelLabel: UILabel!
     
     let rtmpConnection = RTMPConnection()
     lazy var rtmpStream = RTMPStream(connection: rtmpConnection)
@@ -92,7 +93,7 @@ class LiveBroadcastViewController: UIViewController {
     func setup() {
         rtmpStream.syncOrientation = true
         rtmpStream.captureSettings = [
-            "sessionPreset": AVCaptureSession.Preset.medium.rawValue,
+            "sessionPreset": AVCaptureSession.Preset.hd1920x1080.rawValue,
             "continuousAutofocus": false, // use camera autofocus mode
             "continuousExposure": false, //  use camera exposure mode
         ]
@@ -148,6 +149,8 @@ class LiveBroadcastViewController: UIViewController {
         rtmpStream.publish(streamName)
         
         print("Starting live stream for name \(streamName)")
+        
+        channelLabel.text = streamName
         
         let payload = createLiveNotificationPayload(withName: streamName, topic: artistTopic)
         Delegate.sendNotification(with: payload)
