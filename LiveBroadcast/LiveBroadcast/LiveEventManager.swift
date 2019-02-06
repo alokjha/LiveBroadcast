@@ -10,10 +10,10 @@ import Foundation
 
 struct LiveEvent: Codable {
     
-    let date: Date
+    let date: String
     let hlsURL : String
     
-    init(date: Date, hlsURL: String) {
+    init(date: String, hlsURL: String) {
         self.date = date
         self.hlsURL = hlsURL
     }
@@ -26,12 +26,16 @@ struct LiveEventManager {
     
     private  init() {
         if let data = UserDefaults.standard.data(forKey: key), let events = try? JSONDecoder().decode([LiveEvent].self, from: data) {
-            let sorted = events.sorted(by: { $0.date < $1.date })
-            allEvents = sorted
+            allEvents = events
         }
         else {
             allEvents = []
         }
+    }
+    
+    mutating func removeAllEvents() {
+        allEvents = []
+        save()
     }
     
     mutating func addEvent(_ event: LiveEvent) {

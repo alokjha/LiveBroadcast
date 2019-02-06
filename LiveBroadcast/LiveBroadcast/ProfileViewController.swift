@@ -26,12 +26,7 @@ class ProfileViewController: UIViewController {
     
     var hasMicrophonePermission = false
     var hasCameraPermission = false
-    
-    lazy var dateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.dateFormat = "MMM dd, hh:mm a"
-        return df
-    }()
+    let dateFormatter = DateFormatter.appDateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +35,17 @@ class ProfileViewController: UIViewController {
         
         switch currentUserType {
         case .arist:
-            profileLabel.text = "Artist"
+            profileLabel.text = artistName
+            Delegate.unsubscribe(from: artistTopic)
         case .subscriber:
-            profileLabel.text = "Subscriber"
+            profileLabel.text = subscriberName
+            Delegate.subscribe(to: artistTopic)
         default:
             break
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(goLiveNotificationReceived(_:)), name: goLiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(scheduleLiveNotificationReceived(_:)), name: scheduleLiveNotification, object: nil)
         
         checkPermissions()
         
@@ -62,6 +62,36 @@ class ProfileViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    @objc func goLiveNotificationReceived(_ notification: Notification) {
+        guard let userInfo = notification.userInfo else {
+            return
+        }
+        
+        if let stream = userInfo["stream"] as? String, let date = userInfo["date"] as? String {
+            //live event
+            let event = LiveEvent(date: date, hlsURL: stream)
+            LiveEventManager.shared.addEvent(event)
+            
+            ongoingTableView.reloadData()
+            updateOngoingTableViewHeight()
+        }
+    }
+    
+    @objc func scheduleLiveNotificationReceived(_ notification: Notification) {
+        
+        guard let userInfo = notification.userInfo else {
+            return
+        }
+        
+        if let date = userInfo["date"] as? String {
+            let event = ScheduledEvent(date: date)
+            ScheduledEventManager.shared.addEvent(event)
+            
+            scheduledTableView.reloadData()
+            updateScheduledTableViewHeight()
+        }
+    }
+    
     @IBAction func scheduleButtonPressed(_ sender: UIButton) {
         showDatePicker()
     }
@@ -71,6 +101,8 @@ class ProfileViewController: UIViewController {
         let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
         Delegate.unsubscribe(from: artistTopic)
         Delegate.window?.rootViewController = loginVC
+        LiveEventManager.shared.removeAllEvents()
+        ScheduledEventManager.shared.removeAllEvents()
     }
     
     @IBAction func liveButtonPressed(_ sender: UIButton) {
@@ -92,8 +124,11 @@ class ProfileViewController: UIViewController {
             return
         }
         
-        let liveBroadCastVC = self.storyboard?.instantiateViewController(withIdentifier: "liveBroadcastVC") as! LiveBroadcastViewController
-        self.present(liveBroadCastVC, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let liveBroadCastVC = self.storyboard?.instantiateViewController(withIdentifier: "liveBroadcastVC") as! LiveBroadcastViewController
+            self.present(liveBroadCastVC, animated: true, completion: nil)
+        }
+        
     }
     
     func showDatePicker() {
@@ -157,7 +192,11 @@ class ProfileViewController: UIViewController {
     @objc func doneClicked() {
         datePickerContainer.subviews.forEach { $0.removeFromSuperview() }
         datePickerContainer.removeFromSuperview()
-        let event = ScheduledEvent(date: scheduledDate)
+        
+        let date = Date()
+        let dateStr = dateFormatter.string(from: date)
+        
+        let event = ScheduledEvent(date: dateStr)
         ScheduledEventManager.shared.addEvent(event)
         scheduledTableView.reloadData()
         updateScheduledTableViewHeight()
@@ -192,10 +231,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         switch tableView {
         case ongoingTableView:
             let event = LiveEventManager.shared.allEvents[indexPath.row]
-            cell.dateLabel.text = dateFormatter.string(from: event.date)
+            cell.dateLabel.text = event.date
         case scheduledTableView:
             let event = ScheduledEventManager.shared.allEvents[indexPath.row]
-            cell.dateLabel.text = dateFormatter.string(from: event.date)
+            cell.dateLabel.text = event.date
         default:
             break
         }

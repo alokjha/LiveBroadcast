@@ -17,13 +17,11 @@ class LoginViewController: UIViewController {
     @IBAction func artistLogin(_ sender: UIButton) {
         User.shared.loginWithType(.arist)
         showProfileVC()
-        Delegate.unsubscribe(from: artistTopic)
     }
     
     @IBAction func subscriberLogin(_ sender: UIButton) {
         User.shared.loginWithType(.subscriber)
         showProfileVC()
-        Delegate.subscribe(to: artistTopic)
     }
 
     func showProfileVC() {

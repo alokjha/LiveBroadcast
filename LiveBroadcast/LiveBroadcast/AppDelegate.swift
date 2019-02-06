@@ -38,10 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setUpNotification()
         
         switch User.shared.userType {
-        case .arist,.subscriber:
+        case .subscriber,.arist:
             let main = UIStoryboard(name: "Main", bundle: nil)
             let profileVC = main.instantiateViewController(withIdentifier: "ProfileViewController")
             Delegate.window?.rootViewController = profileVC
+            
         default:
             break
         }
@@ -90,23 +91,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        let userInfo = response.notification.request.content.userInfo
-        // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
-        }
-        
-        // Print full message.
-        print(userInfo)
-
+        handleNotification(response.notification.request)
         completionHandler()
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        let userInfo = notification.request.content.userInfo
+        handleNotification(notification.request)
+        completionHandler([.alert,.sound])
+    }
+    
+    func handleNotification(_ request: UNNotificationRequest) {
         
-       
+        let userInfo = request.content.userInfo
         // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
@@ -114,8 +111,17 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         // Print full message.
         print(userInfo)
-
-        completionHandler([.alert,.sound])
+        
+        if let _ = userInfo["stream"] as? String, let _ = userInfo["date"] as? String {
+            //live event
+            NotificationCenter.default.post(name: goLiveNotification, object: nil, userInfo: userInfo)
+            return
+        }
+        
+        if let _ = userInfo["date"] as? String {
+            //scheduled event
+            NotificationCenter.default.post(name: scheduleLiveNotification, object: nil, userInfo: userInfo)
+        }
     }
 }
 

@@ -9,9 +9,9 @@
 import UIKit
 
 struct ScheduledEvent: Codable {
-    let date: Date
+    let date: String
     
-    init(date: Date) {
+    init(date: String) {
         self.date = date
     }
 }
@@ -24,8 +24,7 @@ struct ScheduledEventManager {
     
     private  init() {
         if let data = UserDefaults.standard.data(forKey: key), let events = try? JSONDecoder().decode([ScheduledEvent].self, from: data) {
-            let sorted = events.sorted(by: { $0.date < $1.date })
-            allEvents = sorted
+            allEvents = events
         }
         else {
             allEvents = []
@@ -35,6 +34,11 @@ struct ScheduledEventManager {
     mutating func addEvent(_ event: ScheduledEvent) {
         allEvents.append(event)
         allEvents = allEvents.sorted(by: { $0.date < $1.date })
+        save()
+    }
+    
+    mutating func removeAllEvents() {
+        allEvents = []
         save()
     }
     
