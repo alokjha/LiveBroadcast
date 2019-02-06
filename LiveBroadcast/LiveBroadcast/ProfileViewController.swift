@@ -9,15 +9,18 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class ProfileViewController: UIViewController {
     
     @IBOutlet var profileImageView: UIImageView!
     @IBOutlet var profileLabel: UILabel!
-    @IBOutlet var notifyButton: UIButton!
+    @IBOutlet var scheduleButton: UIButton!
     @IBOutlet var liveButton: UIButton!
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet var tableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var scheduledTableView: UITableView!
+    @IBOutlet var scheduledTableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var ongoingTableView: UITableView!
+    @IBOutlet var ongoingTableViewHeightConstraint: NSLayoutConstraint!
     
+    let currentUserType = User.shared.userType
     let datePickerContainer = UIView()
     var scheduledDate = Date()
     
@@ -33,26 +36,43 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        profileImageView.layer.cornerRadius = 3.0
+        
+        switch currentUserType {
+        case .arist:
+            profileLabel.text = "Artist"
+        case .subscriber:
+            profileLabel.text = "Subscriber"
+        default:
+            break
+        }
+        
         checkPermissions()
         
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.reloadData()
-        updateTableViewHeight()
+        scheduledTableView.dataSource = self
+        scheduledTableView.delegate = self
+        scheduledTableView.reloadData()
+        updateScheduledTableViewHeight()
+        
+        ongoingTableView.dataSource = self
+        ongoingTableView.delegate = self
+        ongoingTableView.reloadData()
+        updateOngoingTableViewHeight()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    @IBAction func notifyButtonPressed(_ sender: UIButton) {
-       
+    @IBAction func scheduleButtonPressed(_ sender: UIButton) {
         showDatePicker()
-        //Delegate.sendNotification()
     }
     
-    @IBAction func viewLiveButtonPressed(_ sender: UIButton) {
-        let recordingVC = self.storyboard?.instantiateViewController(withIdentifier: "recordingVC") as! RecordingViewController
-        self.present(recordingVC, animated: true, completion: nil)
+    @IBAction func logOutPressed(_ sender: UIButton) {
+        User.shared.logOut()
+        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
+        Delegate.unsubscribe(from: artistTopic)
+        Delegate.window?.rootViewController = loginVC
     }
-
+    
     @IBAction func liveButtonPressed(_ sender: UIButton) {
        startLiveBroadcast()
     }
@@ -138,9 +158,12 @@ class ViewController: UIViewController {
         datePickerContainer.subviews.forEach { $0.removeFromSuperview() }
         datePickerContainer.removeFromSuperview()
         let event = ScheduledEvent(date: scheduledDate)
-        EventManager.shared.addEvent(event)
-        tableView.reloadData()
-        updateTableViewHeight()
+        ScheduledEventManager.shared.addEvent(event)
+        scheduledTableView.reloadData()
+        updateScheduledTableViewHeight()
+        
+        let payload = createScheduleEventNotificationPayload(withEvent: event, topic: artistTopic)
+        Delegate.sendNotification(with: payload)
     }
     
     @objc func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -149,17 +172,33 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return EventManager.shared.allEvents.count
+        
+        switch tableView {
+        case ongoingTableView:
+            return LiveEventManager.shared.allEvents.count
+        case scheduledTableView:
+            return ScheduledEventManager.shared.allEvents.count
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! EventCell
         
-        let event = EventManager.shared.allEvents[indexPath.row]
-        cell.dateLabel.text = dateFormatter.string(from: event.date)
+        switch tableView {
+        case ongoingTableView:
+            let event = LiveEventManager.shared.allEvents[indexPath.row]
+            cell.dateLabel.text = dateFormatter.string(from: event.date)
+        case scheduledTableView:
+            let event = ScheduledEventManager.shared.allEvents[indexPath.row]
+            cell.dateLabel.text = dateFormatter.string(from: event.date)
+        default:
+            break
+        }
         
         return cell
     }
@@ -168,9 +207,30 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return 30.0
     }
     
-    func updateTableViewHeight() {
-        let numRows = EventManager.shared.allEvents.count
-        tableViewHeightConstraint.constant = CGFloat(numRows * 30)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch tableView {
+        case ongoingTableView:
+            let event = LiveEventManager.shared.allEvents[indexPath.row]
+            let recordingVC = self.storyboard?.instantiateViewController(withIdentifier: "recordingVC") as! RecordingViewController
+            recordingVC.liveEvent = event
+            self.present(recordingVC, animated: true, completion: nil)
+        default:
+            break
+        }
+    }
+    
+    func updateScheduledTableViewHeight() {
+        let numRows = ScheduledEventManager.shared.allEvents.count
+        scheduledTableViewHeightConstraint.constant = CGFloat(numRows * 30)
+        
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func updateOngoingTableViewHeight() {
+        let numRows = LiveEventManager.shared.allEvents.count
+        ongoingTableViewHeightConstraint.constant = CGFloat(numRows * 30)
         
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
@@ -178,7 +238,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension ViewController {
+extension ProfileViewController {
     
     func checkPermissions() {
         let microphoneStatus = AVCaptureDevice.authorizationStatus(for: .audio)

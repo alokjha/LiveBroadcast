@@ -19,6 +19,8 @@ class RecordingViewController: UIViewController {
                                    "commonMetadata",
                                    "availableMediaCharacteristicsWithMediaSelectionOptions" ]
     
+    var liveEvent: LiveEvent?
+    
     private let timeFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
@@ -37,11 +39,15 @@ class RecordingViewController: UIViewController {
     }
     
     func setupPlayer() {
+        
+        guard let event = liveEvent else {
+            return
+        }
+        
         avPlayer.rate = 1.0
         
-        let streamName = StreamNameGenerator.shared.streamName
-        let hlsURL = "http://13.127.163.52/live/\(streamName)/index.m3u8"
-        let asset = AVURLAsset(url: URL(string: hlsURL)!)
+        let hlsURL = event.hlsURL
+        let asset = AVURLAsset(url: URL(string: event.hlsURL)!)
         asset.resourceLoader.preloadsEligibleContentKeys = true
         asset.loadValuesAsynchronously(forKeys: keysToAutoLoad, completionHandler: nil)
         let playerItem = AVPlayerItem(asset: asset)

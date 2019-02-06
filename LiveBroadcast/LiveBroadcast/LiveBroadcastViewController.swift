@@ -142,11 +142,15 @@ class LiveBroadcastViewController: UIViewController {
         setup()
         videoView.videoGravity = .resizeAspectFill
         videoView.attachStream(rtmpStream)
-        rtmpConnection.connect("rtmp://13.127.163.52:1935/app")
+        rtmpConnection.connect(rtmpHost)
+        
         let streamName = StreamNameGenerator.shared.generateStreamName()
         rtmpStream.publish(streamName)
         
         print("Starting live stream for name \(streamName)")
+        
+        let payload = createLiveNotificationPayload(withName: streamName, topic: artistTopic)
+        Delegate.sendNotification(with: payload)
         
         self.displayLink?.invalidate()
 

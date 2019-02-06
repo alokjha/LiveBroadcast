@@ -36,6 +36,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         setUpNotification()
+        
+        switch User.shared.userType {
+        case .arist,.subscriber:
+            let main = UIStoryboard(name: "Main", bundle: nil)
+            let profileVC = main.instantiateViewController(withIdentifier: "ProfileViewController")
+            Delegate.window?.rootViewController = profileVC
+        default:
+            break
+        }
+        
         return true
     }
     
@@ -112,35 +122,31 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Firebase registration token(FCM token): \(fcmToken)")
-        
-        // This callback is fired at each app startup and whenever a new token is generated.
-        
-        let topic = "LiveBroadcast"
-        DispatchQueue.main.async {
-            Messaging.messaging().subscribe(toTopic: topic) { error in
-                print("Subscribed to firebase messaging with topic: \(topic) and error: \(error?.localizedDescription ?? "No error")" )
-            }
-        }
- 
     }
 }
 
 extension AppDelegate {
-    func sendNotification() {
-        let topic = "LiveBroadcast"
+    func subscribe(to topic: String) {
+        Messaging.messaging().subscribe(toTopic: topic) { error in
+            print("Subscribed to firebase messaging with topic: \(topic) and error: \(error?.localizedDescription ?? "No error")" )
+        }
+    }
+    
+    func unsubscribe(from topic: String) {
+        Messaging.messaging().unsubscribe(fromTopic: topic) { (error) in
+            print("Unsubscribed from firebase messaging with topic: \(topic) and error: \(error?.localizedDescription ?? "No error")" )
+        }
+    }
+}
+
+extension AppDelegate {
+    func sendNotification(with payload: [String: Any]) {
         let url = URL(string: "https://fcm.googleapis.com/v1/projects/livebroadcast-f7a53/messages:send")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer \(firebasOauthToken)", forHTTPHeaderField: "Authorization")
-        
-        var jsonDict : [String: Any] = [:]
-        jsonDict["topic"] = topic
-        jsonDict["notification"] = ["body" : "Sample Body", "title": "FCM Message"]
-        
-        let body = ["message" : jsonDict]
-        
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        request.httpBody = try? JSONSerialization.data(withJSONObject: payload, options: [])
         
         let session = URLSession(configuration:URLSessionConfiguration.default)
         

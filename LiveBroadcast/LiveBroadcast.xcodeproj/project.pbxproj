@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C27B96FC2209688500BA439F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B96FB2209688500BA439F /* AppDelegate.swift */; };
-		C27B96FE2209688500BA439F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B96FD2209688500BA439F /* ViewController.swift */; };
 		C27B97012209688500BA439F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27B96FF2209688500BA439F /* Main.storyboard */; };
 		C27B97032209688700BA439F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C27B97022209688700BA439F /* Assets.xcassets */; };
 		C27B97062209688700BA439F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27B97042209688700BA439F /* LaunchScreen.storyboard */; };
@@ -20,8 +19,12 @@
 		C27B97192209E2F800BA439F /* MXAVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B97182209E2F800BA439F /* MXAVPlayerView.swift */; };
 		C27B971D220A351500BA439F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C27B971C220A351500BA439F /* GoogleService-Info.plist */; };
 		C27B9720220A866000BA439F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B971F220A866000BA439F /* Constants.swift */; };
-		C27B9722220AB8BA00BA439F /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B9721220AB8BA00BA439F /* Event.swift */; };
+		C27B9722220AB8BA00BA439F /* ScheduledEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B9721220AB8BA00BA439F /* ScheduledEventManager.swift */; };
 		C27B9724220AB8D800BA439F /* StreamNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B9723220AB8D800BA439F /* StreamNameGenerator.swift */; };
+		C27B9726220AC81500BA439F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B9725220AC81500BA439F /* LoginViewController.swift */; };
+		C27B9728220AC88600BA439F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B9727220AC88600BA439F /* User.swift */; };
+		C27B972C220AC9E600BA439F /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B972B220AC9E600BA439F /* ProfileViewController.swift */; };
+		C2DA1BB8220AD5650031D868 /* LiveEventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA1BB7220AD5650031D868 /* LiveEventManager.swift */; };
 		C3B0D7402B6084CAAAC1F773 /* Pods_LiveBroadcast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3106359E24356D3DD546E1CF /* Pods_LiveBroadcast.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +33,6 @@
 		AB4CA006B1286CCC466E06DB /* Pods-LiveBroadcast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveBroadcast.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveBroadcast/Pods-LiveBroadcast.release.xcconfig"; sourceTree = "<group>"; };
 		C27B96F82209688500BA439F /* LiveBroadcast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveBroadcast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27B96FB2209688500BA439F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C27B96FD2209688500BA439F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C27B97002209688500BA439F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C27B97022209688700BA439F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C27B97052209688700BA439F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -44,8 +46,12 @@
 		C27B971C220A351500BA439F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C27B971E220A362A00BA439F /* LiveBroadcast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiveBroadcast.entitlements; sourceTree = "<group>"; };
 		C27B971F220A866000BA439F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		C27B9721220AB8BA00BA439F /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		C27B9721220AB8BA00BA439F /* ScheduledEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledEventManager.swift; sourceTree = "<group>"; };
 		C27B9723220AB8D800BA439F /* StreamNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamNameGenerator.swift; sourceTree = "<group>"; };
+		C27B9725220AC81500BA439F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C27B9727220AC88600BA439F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C27B972B220AC9E600BA439F /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C2DA1BB7220AD5650031D868 /* LiveEventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveEventManager.swift; sourceTree = "<group>"; };
 		EC64DDB023A5BC5DF2BADC1F /* Pods-LiveBroadcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveBroadcast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiveBroadcast/Pods-LiveBroadcast.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,7 +102,8 @@
 				C27B971E220A362A00BA439F /* LiveBroadcast.entitlements */,
 				C27B971C220A351500BA439F /* GoogleService-Info.plist */,
 				C27B96FB2209688500BA439F /* AppDelegate.swift */,
-				C27B96FD2209688500BA439F /* ViewController.swift */,
+				C27B9725220AC81500BA439F /* LoginViewController.swift */,
+				C27B972B220AC9E600BA439F /* ProfileViewController.swift */,
 				C27B970D2209807500BA439F /* LiveBroadcastViewController.swift */,
 				C27B97162209DCB200BA439F /* RecordingViewController.swift */,
 				C27B97182209E2F800BA439F /* MXAVPlayerView.swift */,
@@ -106,8 +113,10 @@
 				C27B97072209688700BA439F /* Info.plist */,
 				C27B970F2209870B00BA439F /* MXCADisplayLinkProxy.swift */,
 				C27B971F220A866000BA439F /* Constants.swift */,
+				C27B9727220AC88600BA439F /* User.swift */,
 				C27B9723220AB8D800BA439F /* StreamNameGenerator.swift */,
-				C27B9721220AB8BA00BA439F /* Event.swift */,
+				C27B9721220AB8BA00BA439F /* ScheduledEventManager.swift */,
+				C2DA1BB7220AD5650031D868 /* LiveEventManager.swift */,
 			);
 			path = LiveBroadcast;
 			sourceTree = "<group>";
@@ -248,15 +257,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C27B9722220AB8BA00BA439F /* Event.swift in Sources */,
-				C27B96FE2209688500BA439F /* ViewController.swift in Sources */,
+				C27B9722220AB8BA00BA439F /* ScheduledEventManager.swift in Sources */,
 				C27B97192209E2F800BA439F /* MXAVPlayerView.swift in Sources */,
 				C27B97172209DCB200BA439F /* RecordingViewController.swift in Sources */,
 				C27B97102209870B00BA439F /* MXCADisplayLinkProxy.swift in Sources */,
 				C27B9724220AB8D800BA439F /* StreamNameGenerator.swift in Sources */,
+				C27B972C220AC9E600BA439F /* ProfileViewController.swift in Sources */,
+				C2DA1BB8220AD5650031D868 /* LiveEventManager.swift in Sources */,
 				C27B9720220A866000BA439F /* Constants.swift in Sources */,
 				C27B96FC2209688500BA439F /* AppDelegate.swift in Sources */,
+				C27B9726220AC81500BA439F /* LoginViewController.swift in Sources */,
 				C27B970E2209807500BA439F /* LiveBroadcastViewController.swift in Sources */,
+				C27B9728220AC88600BA439F /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
