@@ -19,6 +19,7 @@
 		C27B97172209DCB200BA439F /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B97162209DCB200BA439F /* RecordingViewController.swift */; };
 		C27B97192209E2F800BA439F /* MXAVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B97182209E2F800BA439F /* MXAVPlayerView.swift */; };
 		C27B971D220A351500BA439F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C27B971C220A351500BA439F /* GoogleService-Info.plist */; };
+		C27B9720220A866000BA439F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27B971F220A866000BA439F /* Constants.swift */; };
 		C3B0D7402B6084CAAAC1F773 /* Pods_LiveBroadcast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3106359E24356D3DD546E1CF /* Pods_LiveBroadcast.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		C27B97182209E2F800BA439F /* MXAVPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MXAVPlayerView.swift; sourceTree = "<group>"; };
 		C27B971C220A351500BA439F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C27B971E220A362A00BA439F /* LiveBroadcast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiveBroadcast.entitlements; sourceTree = "<group>"; };
+		C27B971F220A866000BA439F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EC64DDB023A5BC5DF2BADC1F /* Pods-LiveBroadcast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveBroadcast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiveBroadcast/Pods-LiveBroadcast.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 				C27B97042209688700BA439F /* LaunchScreen.storyboard */,
 				C27B97072209688700BA439F /* Info.plist */,
 				C27B970F2209870B00BA439F /* MXCADisplayLinkProxy.swift */,
+				C27B971F220A866000BA439F /* Constants.swift */,
 			);
 			path = LiveBroadcast;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				C27B97192209E2F800BA439F /* MXAVPlayerView.swift in Sources */,
 				C27B97172209DCB200BA439F /* RecordingViewController.swift in Sources */,
 				C27B97102209870B00BA439F /* MXCADisplayLinkProxy.swift in Sources */,
+				C27B9720220A866000BA439F /* Constants.swift in Sources */,
 				C27B96FC2209688500BA439F /* AppDelegate.swift in Sources */,
 				C27B970E2209807500BA439F /* LiveBroadcastViewController.swift in Sources */,
 			);

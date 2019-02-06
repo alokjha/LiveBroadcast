@@ -117,8 +117,8 @@ extension AppDelegate: MessagingDelegate {
         
         let topic = "LiveBroadcast"
         DispatchQueue.main.async {
-            Messaging.messaging().subscribe(toTopic: topic) { _ in
-                print("Subscribed to firebase messaging with topic: \(topic)")
+            Messaging.messaging().subscribe(toTopic: topic) { error in
+                print("Subscribed to firebase messaging with topic: \(topic) and error: \(error?.localizedDescription ?? "No error")" )
             }
         }
  
@@ -132,7 +132,7 @@ extension AppDelegate {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("Bearer ya29.GlunBiDNBNy-AfbhW4X3kF8NsbgwDkV58iUYIzQjHGxZjGBHeJt0cNLRbeNTmmySyBzo9ey3gGA4vE962nZ5lMv9pkus-8KohfOuvFeM8e2uaxWwsIxG0Eyawj9E", forHTTPHeaderField: "Authorization")
+        request.addValue("Bearer \(firebasOauthToken)", forHTTPHeaderField: "Authorization")
         
         var jsonDict : [String: Any] = [:]
         jsonDict["topic"] = topic

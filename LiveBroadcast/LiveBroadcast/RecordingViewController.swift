@@ -39,7 +39,8 @@ class RecordingViewController: UIViewController {
     func setupPlayer() {
         avPlayer.rate = 1.0
         
-        let hlsURL = "http://13.127.163.52/live/mystream/index.m3u8"
+        let streamName = StreamNameGenerator.shared.streamName
+        let hlsURL = "http://13.127.163.52/live/\(streamName)/index.m3u8"
         let asset = AVURLAsset(url: URL(string: hlsURL)!)
         asset.resourceLoader.preloadsEligibleContentKeys = true
         asset.loadValuesAsynchronously(forKeys: keysToAutoLoad, completionHandler: nil)
@@ -74,9 +75,12 @@ class RecordingViewController: UIViewController {
         timeObserver = timeChange
         
         videoView.setPlayer(avPlayer, contentMode: .aspectFill)
+        
+        print("Viewing live stream at \(hlsURL)")
     }
     
     @IBAction func closeButtonPressed(_ sender: UIButton) {
+        NotificationCenter.default.removeObserver(self)
         avPlayer.pause()
         avPlayer.replaceCurrentItem(with: nil)
         if let observer = timeObserver {
